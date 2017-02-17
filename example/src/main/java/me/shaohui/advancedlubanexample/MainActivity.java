@@ -3,6 +3,7 @@ package me.shaohui.advancedlubanexample;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import me.shaohui.advancedluban.Luban;
 import me.shaohui.advancedluban.OnCompressListener;
 import me.shaohui.advancedluban.OnMultiCompressListener;
+import me.shaohui.advancedluban.Renameable;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private RadioGroup mMethodGroup;
 
     private RadioGroup mGearGroup;
+
+   private File cacheDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"lubancache");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +113,18 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
+        //File cacheDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"lubancache");
+
+
         Luban.compress(this, mFileList.get(0))
                 .putGear(gear)
+                .setCompressCacheDir(cacheDir)
+                .setCompressFileRenameMethod(new Renameable(){
+                    @Override
+                    public String getThumbFileName(File file) {
+                        return super.getThumbFileName(file);
+                    }
+                })
                 .asObservable()
                 .subscribe(new Consumer<File>() {
                     @Override
@@ -131,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Luban.compress(this, mFileList)
                 .putGear(gear)
+                .setCompressCacheDir(cacheDir)
                 .asListObservable()
                 .subscribe(new Consumer<List<File>>() {
                     @Override
@@ -154,6 +169,7 @@ public class MainActivity extends AppCompatActivity {
         }
         Luban.compress(this, mFileList.get(0))
                 .putGear(gear)
+                .setCompressCacheDir(cacheDir)
                 .launch(new OnCompressListener() {
                     @Override
                     public void onStart() {

@@ -83,7 +83,7 @@ class LubanCompresser {
     }
 
     private File thirdCompress(@NonNull File file) throws IOException {
-        String thumb = getCacheFilePath();
+        String thumb = getCacheFilePath(file);
 
         double size;
         String filePath = file.getAbsolutePath();
@@ -152,7 +152,7 @@ class LubanCompresser {
         int longSide = 720;
         int shortSide = 1280;
 
-        String thumbFilePath = getCacheFilePath();
+        String thumbFilePath = getCacheFilePath(file);
         String filePath = file.getAbsolutePath();
 
         long size = 0;
@@ -189,7 +189,7 @@ class LubanCompresser {
     }
 
     private File customCompress(@NonNull File file) throws IOException {
-        String thumbFilePath = getCacheFilePath();
+        String thumbFilePath = getCacheFilePath(file);
         String filePath = file.getAbsolutePath();
 
         int angle = getImageSpinAngle(filePath);
@@ -226,13 +226,14 @@ class LubanCompresser {
         return compress(filePath, thumbFilePath, width, height, angle, fileSize);
     }
 
-    private String getCacheFilePath() {
-        StringBuilder name = new StringBuilder("Luban_" + System.currentTimeMillis());
-        if (mLuban.compressFormat == Bitmap.CompressFormat.WEBP) {
+    private String getCacheFilePath(File file) {
+        //StringBuilder name = new StringBuilder("Luban_" + System.currentTimeMillis());
+        String name = mLuban.renameable.getThumbFileName(file);
+       /* if (mLuban.compressFormat == Bitmap.CompressFormat.WEBP) {
             name.append(".webp");
         } else {
             name.append(".jpg");
-        }
+        }*/
         return mLuban.cacheDir.getAbsolutePath() + File.separator + name;
     }
 

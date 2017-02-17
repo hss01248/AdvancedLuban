@@ -1,37 +1,73 @@
 # AdvancedLuban
-[![build](https://img.shields.io/badge/build-1.3.4-brightgreen.svg?maxAge=2592000)](https://bintray.com/shaohui/maven/AdvancedLuban)
-[![license](https://img.shields.io/badge/license-Apache%202-blue.svg?maxAge=2592000)](https://github.com/shaohui10086/AdvancedLuban/blob/master/LICENSE)
 
 
-[中文版](/README_ZH.md)
+
+
+# update
+
+## 1.0.0 
+
+fork from https://github.com/shaohui10086/AdvancedLuban,add custom cachedir method and rename file method.
+
+```
+.setCompressCacheDir(cacheDir)
+.setCompressFileRenameMethod(new Renameable(){
+    @Override
+    public String getThumbFileName(File file) {
+        return super.getThumbFileName(file);
+    }
+})
+```
+
+
+
+
+
+
+
+# original readme.md:
+
+
 
 ![sketch](/image/sketch_map.png)
 
 
 `AdvancedLuban` —— Is a convenient simple `Android` image compression tool library.Provides multiple compression strategies.Different calling methods，Custom compression,Multi-Image synchronous compression and so on,Focus on a better picture compression experience
 
-Image Count | Origin Total size | Compressed Total size | Time Cost
---- | --- | --- | ---
-1 | 4.3Mb | 85Kb | 0.23s
-4 | 14.22Mb | 364Kb | 1.38s
-9 | 36.23Mb | 745Kb | 4.43s
+| Image Count | Origin Total size | Compressed Total size | Time Cost |
+| ----------- | ----------------- | --------------------- | --------- |
+| 1           | 4.3Mb             | 85Kb                  | 0.23s     |
+| 4           | 14.22Mb           | 364Kb                 | 1.38s     |
+| 9           | 36.23Mb           | 745Kb                 | 4.43s     |
 
 
-## Import
+## Import-Gradle
 
-Maven
 
-    <dependency>
-      <groupId>me.shaohui.advancedluban</groupId>
-      <artifactId>library</artifactId>
-      <version>1.3.4</version>
-      <type>pom</type>
-    </dependency>
+**Step 1.** Add the JitPack repository to your build file
 
-    
-or Gradle
+Add it in your root build.gradle at the end of repositories:
 
-	compile 'me.shaohui.advancedluban:library:1.3.4'
+```
+    allprojects {
+        repositories {
+            ...
+            maven { url "https://jitpack.io" }
+        }
+    }
+
+```
+
+**Step 2.** Add the dependency
+
+```
+    dependencies {
+            compile 'com.github.hss01248:AdvancedLuban:1.0.0'
+    }
+```
+
+
+
 
 ## Usage
 
@@ -55,11 +91,11 @@ or Gradle
 
 ### Compression mode
 
-    
+
 #### 1. CUSTOM_GEAR
 
 compress image file according to the restrictions you set, you can limit: the width, height or file size of the image file 
-    
+​    
         Luban.compress(context, file)
                 .setMaxSize(500)                // limit the final image size（unit：Kb）
                 .setMaxHeight(1920)             // limit image height
@@ -113,7 +149,7 @@ If you use a multi-map compression, we must take into account the risk of OOM, r
 - To support WebP, the minimum supported version is increased to 14
 
 ## Issue
-    
+
 You can according to your needs to choose a different compression mode and call mode ! ｂ（￣▽￣）ｄ ！Finally, I welcome the Issue
 
 ## Thanks For
@@ -128,13 +164,13 @@ You can according to your needs to choose a different compression mode and call 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
-
+    
        http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing, software
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
-	
+
  

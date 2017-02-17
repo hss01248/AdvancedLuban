@@ -19,6 +19,7 @@ import android.support.annotation.IntDef;
 import android.util.Log;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -74,6 +75,23 @@ public class Luban {
      */
     public Luban putGear(@GEAR int gear) {
         mBuilder.gear = gear;
+        return this;
+    }
+    public Luban setCompressCacheDir(File cacheDir) {
+        if(!cacheDir.exists()){
+            cacheDir.mkdirs();
+        }
+        File file = new File(cacheDir,".nomedia");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mBuilder.cacheDir = cacheDir;
+        return this;
+    }
+    public Luban setCompressFileRenameMethod(Renameable renameable) {
+        mBuilder.renameable = renameable;
         return this;
     }
 
